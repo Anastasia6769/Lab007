@@ -58,3 +58,68 @@ void ShowHero(string name, int level, string heroClass = "Воин")
 ShowHero("Аня", 5);
 ShowHero("Макс", 10, "Маг");
 ShowHero("Лена", 7, heroClass: "Лучник");
+//Итоговая задача. Проектирование системы персонажа
+int health = 100;
+
+// ref — использую, потому что нужно изменить здоровье
+void ChangeHealth(ref int health)
+{
+    health = health - 20;
+}
+
+// return — использую, чтобы вернуть урон
+int GetDamage(int a, int b)
+{
+    return a - b;
+}
+
+// out — использую, чтобы вернуть эффект и успех
+bool GetEffect(out int effect)
+{
+    effect = 30;
+    return true;
+}
+
+// in — использую, чтобы только читать характеристики
+void ShowStats(in CharacterStats hero)
+{
+    Console.WriteLine($"Здоровье: {hero.Health}");
+    Console.WriteLine($"Урон: {hero.Damage}");
+    Console.WriteLine($"Защита: {hero.Protection}");
+}
+
+// Необязательный параметр — нужен для выбора вывода
+void ShowHeroInfo(string name, bool info = true)
+{
+    Console.WriteLine($"Имя: {name}");
+
+    if (info)
+    {
+        Console.WriteLine("Уровень: 5");
+    }
+}
+
+ChangeHealth(ref health);
+Console.WriteLine($"Здоровье: {health}");
+
+Console.WriteLine($"Урон: {GetDamage(50, 10)}");
+
+bool result = GetEffect(out int effect);
+Console.WriteLine($"Умение: {result}");
+Console.WriteLine($"Эффект: {effect}");
+
+CharacterStats hero = new CharacterStats();
+hero.Health = health;
+hero.Damage = 50;
+hero.Protection = 10;
+
+ShowStats(in hero);
+
+ShowHeroInfo("Аня", info: true);
+
+struct CharacterStats
+{
+    public int Health;
+    public int Damage;
+    public int Protection;
+}
