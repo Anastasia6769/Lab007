@@ -50,76 +50,157 @@
 //     public int Armor;
 // }
 //Шаг 5. Необязательные параметры и именованные аргументы
-void ShowHero(string name, int level, string heroClass = "Воин")
+// void ShowHero(string name, int level, string heroClass = "Воин")
+// {
+//     Console.WriteLine($"{name}, уровень {level}, класс {heroClass}");
+// }
+
+// ShowHero("Аня", 5);
+// ShowHero("Макс", 10, "Маг");
+// ShowHero("Лена", 7, heroClass: "Лучник");
+// //Итоговая задача. Проектирование системы персонажа
+// int health = 100;
+
+// // ref — использую, потому что нужно изменить здоровье
+// void ChangeHealth(ref int health)
+// {
+//     health = health - 20;
+// }
+
+// // return — использую, чтобы вернуть урон
+// int GetDamage(int a, int b)
+// {
+//     return a - b;
+// }
+
+// // out — использую, чтобы вернуть эффект и успех
+// bool GetEffect(out int effect)
+// {
+//     effect = 30;
+//     return true;
+// }
+
+// // in — использую, чтобы только читать характеристики
+// void ShowStats(in CharacterStats hero)
+// {
+//     Console.WriteLine($"Здоровье: {hero.Health}");
+//     Console.WriteLine($"Урон: {hero.Damage}");
+//     Console.WriteLine($"Защита: {hero.Protection}");
+// }
+
+// // Необязательный параметр — нужен для выбора вывода
+// void ShowHeroInfo(string name, bool info = true)
+// {
+//     Console.WriteLine($"Имя: {name}");
+
+//     if (info)
+//     {
+//         Console.WriteLine("Уровень: 5");
+//     }
+// }
+
+// ChangeHealth(ref health);
+// Console.WriteLine($"Здоровье: {health}");
+
+// Console.WriteLine($"Урон: {GetDamage(50, 10)}");
+
+// bool result = GetEffect(out int effect);
+// Console.WriteLine($"Умение: {result}");
+// Console.WriteLine($"Эффект: {effect}");
+
+// CharacterStats hero = new CharacterStats();
+// hero.Health = health;
+// hero.Damage = 50;
+// hero.Protection = 10;
+
+// ShowStats(in hero);
+
+// ShowHeroInfo("Аня", info: true);
+
+// struct CharacterStats
+// {
+//     public int Health;
+//     public int Damage;
+//     public int Protection;
+// }
+//Самостоятельные задания
+//Базовое
+string a = "Телефон";
+string b = "Ноутбук";
+
+void SwapProducts(ref string a, ref string b)
 {
-    Console.WriteLine($"{name}, уровень {level}, класс {heroClass}");
+    string temp = a;
+    a = b;
+    b = temp;
 }
 
-ShowHero("Аня", 5);
-ShowHero("Макс", 10, "Маг");
-ShowHero("Лена", 7, heroClass: "Лучник");
-//Итоговая задача. Проектирование системы персонажа
-int health = 100;
+SwapProducts(ref a, ref b);
 
-// ref — использую, потому что нужно изменить здоровье
-void ChangeHealth(ref int health)
+Console.WriteLine(a);
+Console.WriteLine(b);
+//Среднее
+bool Buy(int money, int price, out int left)
 {
-    health = health - 20;
-}
-
-// return — использую, чтобы вернуть урон
-int GetDamage(int a, int b)
-{
-    return a - b;
-}
-
-// out — использую, чтобы вернуть эффект и успех
-bool GetEffect(out int effect)
-{
-    effect = 30;
-    return true;
-}
-
-// in — использую, чтобы только читать характеристики
-void ShowStats(in CharacterStats hero)
-{
-    Console.WriteLine($"Здоровье: {hero.Health}");
-    Console.WriteLine($"Урон: {hero.Damage}");
-    Console.WriteLine($"Защита: {hero.Protection}");
-}
-
-// Необязательный параметр — нужен для выбора вывода
-void ShowHeroInfo(string name, bool info = true)
-{
-    Console.WriteLine($"Имя: {name}");
-
-    if (info)
+    if (money >= price)
     {
-        Console.WriteLine("Уровень: 5");
+        left = money - price;
+        return true;
+    }
+
+    left = money;
+    return false;
+}
+
+bool result = Buy(1000, 300, out int left);
+
+Console.WriteLine($"Покупка: {result}");
+Console.WriteLine($"Остаток: {left}");
+//Сложное
+// получаю цену товара
+int GetPrice(int price)
+{
+    return price;
+}
+
+// ref — меняю количество товара
+void ChangeCount(ref int count)
+{
+    count = count + 1;
+}
+
+// in — только читает данные
+void ShowProduct(in Product product)
+{
+    Console.WriteLine($"Товар: {product.Name}");
+    Console.WriteLine($"Цена: {product.Price}");
+}
+
+// Необязательный параметр — можно скрыть цену
+void ShowName(string name, bool showPrice = true)
+{
+    Console.WriteLine($"Название: {name}");
+
+    if (showPrice)
+    {
+        Console.WriteLine("Цена: 500 рублей");
     }
 }
 
-ChangeHealth(ref health);
-Console.WriteLine($"Здоровье: {health}");
+Console.WriteLine(GetPrice(500));
 
-Console.WriteLine($"Урон: {GetDamage(50, 10)}");
+int count = 2;
+ChangeCount(ref count);
+Console.WriteLine($"Количество: {count}");
 
-bool result = GetEffect(out int effect);
-Console.WriteLine($"Умение: {result}");
-Console.WriteLine($"Эффект: {effect}");
+Product item = new Product();
+item.Name = "Телефон";
+item.Price = 500;
 
-CharacterStats hero = new CharacterStats();
-hero.Health = health;
-hero.Damage = 50;
-hero.Protection = 10;
-
-ShowStats(in hero);
-
-ShowHeroInfo("Аня", info: true);
-
-struct CharacterStats
+ShowProduct(in item);
+ShowName("Телефон", showPrice: true);
+struct Product
 {
-    public int Health;
-    public int Damage;
-    public int Protection;
+    public string Name;
+    public int Price;
 }
